@@ -12,7 +12,7 @@ var bio = {
 		"location" : "Gilbert, AZ"
 	},
 	"welcomMessage": "This resume is more or less interactive.  Have fun.",
-	"skills" : ["Awesome Abilities in Microsoft Office", "Amazing at Troubleshooting", "Programming"],
+	"skills" : ["Awesome Abilities in Microsoft Office", "Amazing at Troubleshooting", "Programming", "Knows How to Work Smarter and Harder"],
 	"bioPic": "/images/fry.jpg"
 };
 
