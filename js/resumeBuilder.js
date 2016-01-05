@@ -11,46 +11,46 @@ var bio = {
 		"email" : "djhjcs@gmail.com",
 		"location" : "Gilbert, AZ"
 	},
-	"picture" : "%data%", "/images/fry.jpg",
+	"welcomMessage": "This resume is more or less interactive.  Have fun.",
 	"skills" : ["Awesome Abilities in Microsoft Office", "Amazing at Troubleshooting", "Programming"],
-	"welcomeMessage" : "%data%", "hello"
+	"bioPic": "/images/fry.jpg"
 };
 
 //Work Experience
 var work = {
-	"job" : [
+	"jobs" : [
 	{
 		"employer" : "Papa John's",
-		"position" : "Shift Manager",
-		"years" : "2001-2006",
+		"title" : "Shift Manager",
+		"dates" : "2001-2006",
 		"supervisor" : "Tom Larsen"
 	},
 	{
 		"employer" : "Garlic Jim's",
-		"position" : "Shift Manager",
-		"years" : "2006-2007",
+		"title" : "Shift Manager",
+		"dates" : "2006-2007",
 		"supervisor" : "David Slack"
 	},
 	{
 		"employer" : "2Wire",
-		"position" : "Level 1 Support",
-		"years" : "2007-2009",
+		"title" : "Level 1 Support",
+		"dates" : "2007-2009",
 		"supervisor" : "Scott Mongrain"
 	},
 	{
 		"employer" : "AT&T",
-		"position" : "Tier 2 Support",
-		"years" : "2009-2010",
+		"title" : "Tier 2 Support",
+		"dates" : "2009-2010",
 		"supervisor" : "Rick McCallum"
 	},
 	{
 		"employer" : "Sears Outlet",
-		"position" : "Merchandise Processor",
-		"years" : "2012-2015",
+		"title" : "Merchandise Processor",
+		"dates" : "2012-2015",
 		"supervisor" : "Shani Rhodes"
 	}
-}
-
+	]
+};
 //Projects
 
 
@@ -73,3 +73,30 @@ var education = {
 	}
 	]
 	};
+var formattedName = HTMLheaderName.replace("%data%", bio.name);
+var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
+
+$("#header").prepend(formattedRole);
+$("#header").prepend(formattedName);
+
+if(bio.skills.length > 0) {
+	$("#header").append(HTMLskillsStart);
+	var formattedSkill = HTMLskills.replace("%data%", bio.skills[0]);
+	$("#skills").append(formattedSkill);
+	formattedSkill = HTMLskills.replace("%data%", bio.skills[1]);
+	$("#skills").append(formattedSkill);
+	formattedSkill = HTMLskills.replace("%data%", bio.skills[2]);
+	$("#skills").append(formattedSkill);
+	formattedSkill = HTMLskills.replace("%data%", bio.skills[3]);
+	$("#skills").append(formattedSkill);
+}
+
+for (job in work.jobs) {
+	$("#workExperience").append(HTMLworkStart);
+
+	var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+	var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+	var formattedEmployerTitle = formattedEmployer + formattedTitle;
+
+	$(".work-entry:last").append(formattedEmployerTitle);
+}
