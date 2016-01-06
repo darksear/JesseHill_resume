@@ -13,7 +13,7 @@ var bio = {
 	},
 	"welcomMessage": "This resume is more or less interactive.  Have fun.",
 	"skills" : ["Awesome Abilities in Microsoft Office", "Amazing at Troubleshooting", "Programming", "Knows How to Work Smarter and Harder"],
-	"bioPic": "/images/fry.jpg"
+	"bioPic": "images/197x148.gif"
 };
 
 //Work Experience
@@ -23,30 +23,40 @@ var work = {
 		"employer" : "Papa John's",
 		"title" : "Shift Manager",
 		"dates" : "2001-2006",
+		"location" : "Gilbert, AZ",
+		"description" : "Official duties included work flow management, inventory management, and cash management.",
 		"supervisor" : "Tom Larsen"
 	},
 	{
 		"employer" : "Garlic Jim's",
 		"title" : "Shift Manager",
 		"dates" : "2006-2007",
+		"location" : "Higley, AZ",
+		"description" : "Official duties included cash management, and personnel management.",
 		"supervisor" : "David Slack"
 	},
 	{
 		"employer" : "2Wire",
 		"title" : "Level 1 Support",
 		"dates" : "2007-2009",
+		"location" : "Tempe, AZ",
+		"description" : "Helped AT&T customers with self installs of 2Wire(now Pace) aDSL modems.  Was a part of the 2Wire email team and helped compose 80% of their response templates for common issues.",
 		"supervisor" : "Scott Mongrain"
 	},
 	{
 		"employer" : "AT&T",
 		"title" : "Tier 2 Support",
 		"dates" : "2009-2010",
+		"location" : "Tempe, AZ",
+		"description" : "Helped install and repair techs troubleshoot issues that were preventing sync as well as wireless connection problems",
 		"supervisor" : "Rick McCallum"
 	},
 	{
 		"employer" : "Sears Outlet",
 		"title" : "Merchandise Processor",
 		"dates" : "2012-2015",
+		"location" : "Gilbert, AZ",
+		"description" : "Official duties are to ensure that product meets presentation guidelines, price new product, move new product to the floor and to remove sold products.  Unofficial dutes have been to fix incorrect signs using Word, Excel and even Acrobat.",
 		"supervisor" : "Shani Rhodes"
 	}
 	]
@@ -75,9 +85,17 @@ var education = {
 	};
 var formattedName = HTMLheaderName.replace("%data%", bio.name);
 var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
+var formattedMobile = HTMLmobile.replace("%data%", bio.contacts.cellNumber);
+var formattedEmail = HTMLemail.replace("%data%", bio.contacts.email);
+var formattedLocation = HTMLlocation.replace("%data%", bio.contacts.location);
+var formattedPic = HTMLbioPic.replace("%data%", bio.bioPic);
 
 $("#header").prepend(formattedRole);
 $("#header").prepend(formattedName);
+$("#header").append(formattedPic);
+$("#header").append(formattedMobile);
+$("#header").append(formattedEmail);
+$("#header").append(formattedLocation);
 
 if(bio.skills.length > 0) {
 	$("#header").append(HTMLskillsStart);
@@ -91,12 +109,39 @@ if(bio.skills.length > 0) {
 	$("#skills").append(formattedSkill);
 }
 
-for (job in work.jobs) {
-	$("#workExperience").append(HTMLworkStart);
+function displayWork()
+{
+	for (job in work.jobs) {
+		$("#workExperience").append(HTMLworkStart);
 
-	var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
-	var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
-	var formattedEmployerTitle = formattedEmployer + formattedTitle;
+		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+		var formattedEmployerTitle = formattedEmployer + formattedTitle;
+		var formattedWorkdates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
+		var formattedWorkLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+		var formattedWorkDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
 
-	$(".work-entry:last").append(formattedEmployerTitle);
+
+		$(".work-entry:last").append(formattedEmployerTitle);
+		$(".work-entry:last").append(formattedWorkdates);
+		$(".work-entry:last").append(formattedWorkLocation);
+		$(".work-entry:last").append(formattedWorkDescription);
+	}
 }
+
+displayWork();
+$(document).click(function(loc) {
+	var x = loc.pageX;
+	var y = loc.pageY;
+	logClicks(x,y);
+});
+
+function inName(name) {
+	name = name.trim.split(" ");
+	name[1] = name[1].toUpperCase();
+	name[0] = name[0].slice(0,1).toUpperCase() + name[0].slice(1).toLowerCase();
+
+	return name[0] + " " + name[1];
+}
+
+$('#main').append(internationalizeButton);
