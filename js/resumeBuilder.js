@@ -62,7 +62,19 @@ var work = {
 	]
 };
 //Projects
-
+var projects = {
+	"projects" : [
+		{
+			"title" : "Sample Project 1",
+			"dates" : "2014",
+			"description" : "blah blah blah blah blah blah blah blah blah blah blah blather some more",
+			"images" : [
+				"http://loremflickr.com/1757/1080/puppy",
+				"http://loremflickr.com/1757/1080/puppy"
+				]
+		}
+	]
+}
 
 //Education
 var education = { 
@@ -129,12 +141,39 @@ function displayWork()
 	}
 }
 
+projects.display = function() {
+	for (project in projects.projects) {
+		$("#projects").append(HTMLprojectStart);
+
+		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+		$(".project-entry:last").append(formattedTitle);
+
+		var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+		$(".project-entry:last").append(formattedDates);
+
+		var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+		$(".project-entry:last").append(formattedDescription);
+
+		if (projects.projects[project].images.length > 0) {
+			for (image in projects.projects[project].images) {
+				var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+				$(".project-entry:last").append(formattedImage);
+			}
+		}
+	}
+}
+
+projects.display();
 displayWork();
+$("#mapDiv").append(googleMap);
+
 $(document).click(function(loc) {
 	var x = loc.pageX;
 	var y = loc.pageY;
 	logClicks(x,y);
 });
+
+
 
 function inName(name) {
 	name = name.trim.split(" ");
